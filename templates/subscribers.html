@@ -1,38 +1,45 @@
+<!DOCTYPE html>
 <html>
 <head>
-<title>mlmmj - {LIST} subscribers</title>
-<style type="text/css">
-#subscribers {
-	float: left;
-}
+	<title>mlmmj - {LIST} subscribers</title>
+	<link rel="stylesheet" href="/assets/css/style.css">
 
-#addsubscribers {
-        float: left;
-	margin-left: 2em;
-}
-#index {
-	clear: both;
-}
-</style>
+	<style type="text/css">
+		#subscribers {
+			float: left;
+		}
+
+		#addsubscribers {
+			float: left;
+			margin-left: 2em;
+		}
+		#index {
+			clear: both;
+		}
+	</style>
 </head>
+
 <body>
-<h1>{LIST} subscribers</h1>
+	<div class="page">
+		<h1><a href="index.php">Mailing Lists Admin :: ellak.gr</a></h1>
+		<h2>{LIST} subscribers</h2>
 
-{MESSAGE}
+		{MESSAGE}
 
-<table id="subscribers">
-{SUBS}
-</table>
+		<table id="subscribers">
+		{SUBS}
+		</table>
 
-<form method="post" action="subscribers.php?list={LIST}" id="addsubscribers">
-Add subscribers:<br/>
-<textarea name="tosubscribe" rows="5" cols="30">
-</textarea><br/>
-<input type="submit" name="submit" value="Add" />
-</form>
+		<form method="post" action="subscribers.php?list={LIST}" id="addsubscribers">
+		Add subscribers:<br/>
+		<textarea name="tosubscribe" rows="5" cols="30">
+		</textarea><br/>
+		<input type="submit" name="submit" value="Add" />
+		</form>
 
-<p id="index">
-<a href="index.php">Index</a>
-</p>
+		<p id="index">
+			<a href="index.php">Homepage</a>
+		</p>
+	</div>
 </body>
 </html>
