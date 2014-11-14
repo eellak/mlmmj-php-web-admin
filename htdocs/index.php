@@ -35,13 +35,29 @@ $tpl->define(array("main" => "index.html"));
 
 $lists = "";
 
-# use scandir to have alphabetical order
-foreach (scandir($topdir) as $file) {
-    if (!ereg("^\.",$file))
+// get top directories (domains)
+$domains = array_diff(scandir($topdir), array('..', '.'));
+
+// get second level dirs (lists)
+foreach ($domains as $domain) {
+    // top-level domain dir
+    $domaindir = $topdir . '/' . $domain;
+
+    if (is_dir($domaindir))
     {
-	$lists .= "<p>".htmlentities($file)."<br/>\n";
-	$lists .= "<a href=\"edit.php?list=".urlencode($file)."\">Config</a> - <a href=\"subscribers.php?list=".urlencode($file)."\">Subscribers</a>\n";
-	$lists .= "</p>\n";
+        $lists .= "<h2>$domain</h2>\n<ul>";
+
+        foreach (array_diff(scandir($domaindir), array('..', '.')) as $list)
+        {
+            $listurl = urlencode($domain . '/' . $list);
+
+            $lists .= "\n\t<li><strong>" . htmlentities($list) . ':</strong>&nbsp;&nbsp;'
+                   . '<a href="edit.php?list=' . $listurl
+                   . '">config</a> - <a href="subscribers.php?list='
+                   . $listurl . '">subscribers</a>' . "\n</li>";
+        }
+
+	$lists .= "\n</ul>";
     }
 }
 
