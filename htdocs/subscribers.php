@@ -32,8 +32,10 @@ $list = $_GET["list"];
 if(!isset($list))
 die("no list specified");
 
-if (dirname(realpath($topdir."/".$list)) != realpath($topdir))
-die("list outside topdir");
+if (dirname(dirname(realpath($topdir."/".$list))) != realpath($topdir))
+{
+    die("list outside topdir");
+}
 
 if(!is_dir($topdir."/".$list))
 die("non-existent list");
