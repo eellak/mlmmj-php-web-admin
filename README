@@ -1,0 +1,49 @@
+mlmmj-1.0.0                                                  August 31th 2004
+
+To use this web-interface you have to:
+
+1) Copy the files from the php-admin directory of the mlmmj distribution to a
+   suitable location and point your webroot to the htdocs directory. If you
+   don't want the webinterface in the root of your website it is recommended to
+   make an alias in your web server configuration in order to keep the conf
+   directory at the same level as the htdocs directory and still outside
+   webscope. If you want to keep it somewhere else, you will need to modify
+   the first line of code in index.php, edit.php and save.php.
+
+2) If your lists are stored somewhere other than /var/spool/mlmmj, edit
+   conf/config.php to reflect this.
+
+3) Change the permissions of the listdir/control directories of any list you
+   want to control using the web-interface, so the web server can write in it:
+
+     # chown -R wwwrun /var/spool/mlmmj/mlmmj-test/control/
+
+4) If the web server does not run as the same user the mailserver writes as
+   you need to create a group (eg. mlmmj) and add both users to it. The
+   subscribers.d directory then needs to be writable by that group:
+
+     # addgroup mlmmj
+     # adduser wwwrun mlmmj
+     # adduser mailuser mlmmj
+     # chgrp -R mlmmj /var/spool/mlmmj/mlmmj-test/subscribers.d/
+     # chmod -R g+w /var/spool/mlmmj/mlmmj-test/subscribers.d/
+     # chmod g+s /var/spool/mlmmj/mlmmj-test/subscribers.d/
+
+   setgid flag is needed when the webserver calls mlmmj-sub and creates a file
+   under subscribers.d, to keep the mlmmj group.
+
+   If using the Exim mailserver, you should add initgroups = true in your
+   mlmmj_transport, otherwise it won't be able to write files having write
+   permission to mlmmj group.
+
+5) To enable access control on Apache you have to rename dot.htaccess to
+   .htaccess and edit the path inside the file to point to a htpasswd file
+   somewhere outside the webscope.
+
+   If you don't have one already, you can create one like this
+
+      htpasswd -c /home/mlmmj/htpasswd USER
+
+   It will then ask you for a password for the given username.
+
+6) That is it, you are ready to use the interface.
