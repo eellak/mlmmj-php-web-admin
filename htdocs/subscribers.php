@@ -45,7 +45,7 @@ $message = "";
 
 # subscribe some people if tosubscribe is set
 if (isset($_POST["tosubscribe"])) {
-	
+
 	foreach (preg_split('/\r\n|\n|\r/', $_POST["tosubscribe"]) as $line) {
 		$email = trim($line);
 		if ($email != "") {
@@ -60,7 +60,7 @@ if (isset($_POST["tosubscribe"])) {
 				$message.= "* Email address not valid: $email\n";
 			}
 		}
-		
+
 	}
 
 # delete some people if delete is set
@@ -68,7 +68,7 @@ if (isset($_POST["tosubscribe"])) {
 
 	$email = $_POST["email"];
 	if (! filter_var($email, FILTER_VALIDATE_EMAIL)) die("Email address not valid");
-	
+
 	$cmd = "/usr/bin/mlmmj-unsub -L ".escapeshellarg("$topdir/$list")." -a ".escapeshellarg($email)." 2>&1";
 	unset($out);
 	exec($cmd, $out, $ret);
@@ -103,12 +103,16 @@ if ($ret !== 0) {
 	}
 }
 
+# get subscribers count from mlmmj
+$count = "/usr/bin/mlmmj-list -L ".escapeshellarg("$topdir/$list")." -c 2>&1";
+
 # set template vars
 $tpl->define(array("main" => "subscribers.html"));
 
 $tpl->assign(array("LIST" => htmlspecialchars($list)));
 $tpl->assign(array("MESSAGE" => "<pre>".htmlspecialchars($message)."</pre>"));
 $tpl->assign(array("SUBS" => $subscribers));
+$tpl->assign(array("COUNT" => exec($count)));
 
 $tpl->parse("MAIN","main");
 $tpl->FastPrint("MAIN");

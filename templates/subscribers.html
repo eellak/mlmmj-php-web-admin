@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>mlmmj - {LIST} subscribers</title>
-	<link rel="stylesheet" href="/assets/css/style.css">
+  <title>mlmmj - {LIST} subscribers</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
 
-	<style type="text/css">
-		#subscribers {
-			float: left;
-		}
+  <style type="text/css">
+    #subscribers {
+      float: left;
+    }
 
-		#addsubscribers {
-			float: left;
-			margin-left: 2em;
-		}
-		#index {
-			clear: both;
-		}
-	</style>
+    #addsubscribers {
+      float: left;
+      margin-left: 2em;
+    }
+    #index {
+      clear: both;
+    }
+  </style>
 </head>
 
 <body>
-	<div class="page">
-		<h1><a href="index.php">Mailing Lists Admin :: ellak.gr</a></h1>
-		<h2>{LIST} subscribers</h2>
+  <div class="page">
+    <h1><a href="index.php">Mailing Lists Admin :: ellak.gr</a></h1>
+    <h2>{LIST} - {COUNT} subscribers</h2>
 
-		{MESSAGE}
+    {MESSAGE}
 
-		<table id="subscribers">
-		{SUBS}
-		</table>
+    <table id="subscribers">
+    {SUBS}
+    </table>
 
-		<form method="post" action="subscribers.php?list={LIST}" id="addsubscribers">
-		Add subscribers:<br/>
-		<textarea name="tosubscribe" rows="5" cols="30">
-		</textarea><br/>
-		<input type="submit" name="submit" value="Add" />
-		</form>
+    <form method="post" action="subscribers.php?list={LIST}" id="addsubscribers">
+    Add subscribers:<br/>
+    <textarea name="tosubscribe" rows="5" cols="30">
+    </textarea><br/>
+    <input type="submit" name="submit" value="Add" />
+    </form>
 
-		<p id="index">
-			<a href="index.php">Homepage</a>
-		</p>
-	</div>
+    <p id="index">
+      <a href="index.php">Homepage</a>
+    </p>
+  </div>
 </body>
 </html>
